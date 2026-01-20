@@ -1,56 +1,92 @@
-public class MyLL {
-    private class Node {
-        public Node next;
-        public char value;
+public class MyLL<T> {
+    
+    private class Node<E> {
+        public E value;
+        public Node<E> next;
+        public Node<E> prev;
 
-        public Node(char value, Node next){
+        public Node(E value, Node<E> next){
             this.value = value;
             this.next = next;
-
         }
     }
 
-    private Node head;
+    private Node<T> head;
+    private Node<T> tail;
 
     public MyLL(){
         head = null;
+        tail = null;
     }
 
     public void printList(){
-        Node current = head;
+        Node<T> current = head;
         while (current != null){
             System.out.println(current.value);
             current = current.next;
         }
     }
 
-    public boolean contains(char toFind){
-        Node current = head;
+    public void printBackwards(){
+        if (tail == null){
+            return;
+        }
+        Node<T> current = tail;
+
+        while (current.prev != null){
+            System.out.println(current.value);
+            current = current.prev;
+        }
+
+        System.out.println(current.value);
+    }
+
+    public void addToBack(T toAdd){
+        Node<T> newNode = new Node<T>(toAdd, null);
+        
+        if (head == null) {
+            head = newNode;
+            return;
+        }
+
+        Node<T> current = head;
+        while (current.next != null){
+            current = current.next;
+        }
+        
+        newNode.prev = current;
+        current.next = newNode;
+        this.tail = newNode;
+
+    }
+
+    public T contains(T toFind){
+        Node<T> current = head;
         while (current != null){
-            if (current.value == toFind){
-                return true;
+            if (current.value.equals(toFind)){
+                return toFind;
             }
             current = current.next;
         }
-        return false;
+        return null;
     }
 
 
-    public char remove(char toRemove){
-        if (head == null) return '\0';
+    public T remove(T toRemove){
+        if (head == null) return null;
 
-        if (head.value == toRemove) head = head.next;
+        if (head.value.equals(toRemove)) head = head.next;
 
         
-        Node current = head;
+        Node<T> current = head;
         while (current.next != null){
-            if (current.next.value == toRemove){
+            if (current.next.value.equals(toRemove)){
                 current.next = current.next.next;
                 return toRemove;
             }
             current = current.next;
         }
 
-        return '\0';
+        return null;
     }
 }

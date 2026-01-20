@@ -1,10 +1,9 @@
-public class Node {
-    public Node next;
-    public char value;
+// public class Node<T> {
+//     public Node<T> next;
+//     public T value;
 
-    public Node(char value, Node next){
-        this.value = value;
-        this.next = next;
-
-    }
-}
+//     public Node(T value, Node<T> next){
+//         this.value = value;
+//         this.next = next;
+//     }
+// }
